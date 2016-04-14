@@ -1,4 +1,4 @@
-# SSH Set No Passwd of Server Group
+# SSH Set No Passwd Login of Server Group
 Batch script to set ssh login without no password
 
 ## Usage
