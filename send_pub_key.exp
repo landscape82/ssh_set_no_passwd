@@ -1,0 +1,23 @@
+#!/usr/bin/expect
+if {$argc<3} {
+ puts stderr "注意格式:$argv0 IP地址 用户名  密码 "
+ exit 1
+}
+
+set host [ lindex $argv 0 ]
+set user  [ lindex $argv 1 ]
+set pwd  [ lindex $argv 2 ]
+set timeout 30
+
+set home "/home/$user"
+
+if { "$user" == "root" } {
+    set home "/root"
+}
+
+spawn scp ${home}/.ssh/authorized_keys ${user}@${host}:.ssh/
+expect {
+"*yes/no" { send "yes\r"; exp_continue }
+"*password:" { send "$pwd\r"  }
+}
+expect eof
